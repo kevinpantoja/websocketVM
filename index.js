@@ -1,4 +1,4 @@
-console.log("carga");
+console.log("carga2");
 const http = require('http');
 const WebSocketServer = require('websocket').server;
 const mongoose = require('mongoose');
@@ -105,6 +105,7 @@ wsServer.on('request', async request => {
 });
 
 // Inicia el servidor HTTP en el puerto 3000
-server.listen(8080, () => {
-  console.log('Servidor escuchando en el puerto 8080');
+const PORT = process.env.PORT || 8080;
+server.listen(PORT, () => {
+  console.log(`Servidor WebSocket escuchando en el puerto ${PORT}`);
 });
