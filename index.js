@@ -1,7 +1,7 @@
 console.log("carga4");
 const https = require('https');
 const fs = require('fs');
-const WebSocket = require('websocket').server;
+const WebSocketServer = require('websocket').server;
 
 const privateKey = fs.readFileSync('private.key', 'utf8');
 const certificate = fs.readFileSync('certificate.crt', 'utf8');
