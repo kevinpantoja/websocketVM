@@ -28,7 +28,9 @@ const Dato = mongoose.model('Dato', datosSchema);
 
 // Crea un servidor HTTP básico
 const server = https.createServer(serverOptions);
-const wss = new WebSocket.Server({ server });
+const wss = new new WebSocketServer({
+  httpServer: server,
+});
 /*const server = http.createServer((req, res) => {
   // Aquí puedes manejar las solicitudes HTTP si es necesario
 });*/
