@@ -1,5 +1,16 @@
 console.log("carga2");
 const http = require('http');
+const fs = require('fs');
+const WebSocket = require('ws');
+
+const privateKey = fs.readFileSync('private.key', 'utf8');
+const certificate = fs.readFileSync('certificate.crt', 'utf8');
+
+const serverOptions = {
+  key: privateKey,
+  cert: certificate
+};
+
 const WebSocketServer = require('websocket').server;
 const mongoose = require('mongoose');
 // Configurar la conexión a MongoDB Atlas
@@ -16,14 +27,16 @@ const datosSchema = new mongoose.Schema({
 const Dato = mongoose.model('Dato', datosSchema);
 
 // Crea un servidor HTTP básico
-const server = http.createServer((req, res) => {
+const server = https.createServer(serverOptions);
+const wss = new WebSocket.Server({ server });
+/*const server = http.createServer((req, res) => {
   // Aquí puedes manejar las solicitudes HTTP si es necesario
-});
+});*/
 
 // Asocia el servidor WebSocket al servidor HTTP
-const wsServer = new WebSocketServer({
+/*const wsServer = new WebSocketServer({
   httpServer: server,
-});
+});*/
 
 // Función para enviar un mensaje a todos los clientes conectados
 function sendUpdateToClients(message) {
@@ -82,7 +95,7 @@ setInterval(async () => {
 }, 2 * 60 * 1000); // 2 minutos en milisegundos
 
 // Maneja las solicitudes de conexión al servidor WebSocket
-wsServer.on('request', async request => {
+wss.on('request', async request => {
   const connection = request.accept(null, request.origin);
   // Maneja los mensajes entrantes del cliente
   connection.on('message', message => {
