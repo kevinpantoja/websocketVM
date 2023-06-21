@@ -1,4 +1,4 @@
-console.log("carga3");
+console.log("carga4");
 const https = require('https');
 const fs = require('fs');
 const WebSocket = require('websocket').server;
@@ -28,7 +28,7 @@ const Dato = mongoose.model('Dato', datosSchema);
 
 // Crea un servidor HTTP básico
 const server = https.createServer(serverOptions);
-const wss = new new WebSocketServer({
+const wss = new WebSocketServer({
   httpServer: server,
 });
 /*const server = http.createServer((req, res) => {
