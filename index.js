@@ -1,7 +1,7 @@
-console.log("carga2");
-const http = require('http');
+console.log("carga3");
+const https = require('https');
 const fs = require('fs');
-const WebSocket = require('ws');
+const WebSocket = require('websocket').server;
 
 const privateKey = fs.readFileSync('private.key', 'utf8');
 const certificate = fs.readFileSync('certificate.crt', 'utf8');
@@ -11,7 +11,7 @@ const serverOptions = {
   cert: certificate
 };
 
-const WebSocketServer = require('websocket').server;
+/*const WebSocketServer = require('websocket').server;*/
 const mongoose = require('mongoose');
 // Configurar la conexión a MongoDB Atlas
 mongoose.connect('mongodb+srv://root:admin@cluster0.q50lynh.mongodb.net/SistemasDB', {
@@ -40,7 +40,7 @@ const wss = new WebSocket.Server({ server });
 
 // Función para enviar un mensaje a todos los clientes conectados
 function sendUpdateToClients(message) {
-  wsServer.connections.forEach(connection => {
+  wss.connections.forEach(connection => {
     connection.sendUTF(message);
   });
 }
