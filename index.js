@@ -98,6 +98,7 @@ setInterval(async () => {
 
 // Maneja las solicitudes de conexión al servidor WebSocket
 wss.on('request', async request => {
+  console.log("mensaje recibido");
   const connection = request.accept(null, request.origin);
   // Maneja los mensajes entrantes del cliente
   connection.on('message', message => {
